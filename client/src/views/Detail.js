@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams , Link, Navigate} from "react-router-dom"
+import DeleteButton from "../components/DeleteButton"
 
 export default () => {
     const [product, setProduct] = useState({})
@@ -11,14 +12,6 @@ export default () => {
             .then(product => setProduct(product.data))
             .catch(err => console.log(err))
     }, [id])
-    const deleteProduct = () => {
-        axios.delete(`http://localhost:8000/api/product/${id}`)
-            .then(res => {
-                console.log(res)
-                setDeleted(true)
-            })
-            .catch(err => console.log(err))
-    }
     if(deleted){
         return <Navigate to={"/"}/>
     }
@@ -28,7 +21,6 @@ export default () => {
         <p>Description: {product.description}</p>
         <Link to={`/${id}/edit`}>Edit</Link>
         <br/><br/>
-        <button onClick={deleteProduct}>Delete Product</button>
+        <DeleteButton productId={id} successCallBack={()=> setDeleted(true)}/>
     </div>
 }
-//ELIMINAR TAMBIEN DESDE ACA Y REDIRIGIR A LA PAGINA PRINCIPAL

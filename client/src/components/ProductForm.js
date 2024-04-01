@@ -1,11 +1,7 @@
 import React, {useState} from 'react'
-import axios from 'axios'
-export default () => {
-    const [product, setProduct] = useState({
-        title: "",
-        price: "",
-        description: ""
-    })
+export default props => {
+    const {initialData, onSubmitProp} = props
+    const [product, setProduct] = useState(initialData)
     const handleChange = (e) => {
         const {name, value} = e.target
         setProduct({
@@ -15,30 +11,21 @@ export default () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('http://localhost:8000/api/product', {
-            title: product.title,
-            price: product.price,
-            description: product.description
-        })
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-        console.log(product)
+        onSubmitProp(product)
     }
     return <form onSubmit={handleSubmit}>
-        
-        <h1>Product Manager</h1>
         <div>
-            <label>Title </label>
+            <label>Title </label><br/>
             <input type="text" name='title' value={product.title} onChange={(e) => handleChange(e)}/>
-        </div>
+        </div><br/>
         <div>
-            <label>Price </label>
+            <label>Price </label><br/>
             <input type="number" name='price' value={product.price} onChange={(e) => handleChange(e)}/>
-        </div>
+        </div><br/>
         <div>
-            <label>Description </label>
+            <label>Description </label><br/>
             <input type="text" name='description' value={product.description} onChange={(e) => handleChange(e)}/>
-        </div>
+        </div><br/>
         <input type='submit' value={"Submit"}/>
     </form>
 }
