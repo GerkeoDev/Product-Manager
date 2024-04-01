@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Main from './views/Main';
 import Detail from './views/Detail';
+import Update from './views/Update';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Main />}/>
         <Route path='/:id' element={<Detail />}/>
+        <Route path='/:id/edit' element={<Update />} />
       </Routes>
     </div>
   );
